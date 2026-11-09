@@ -1,7 +1,6 @@
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useStore } from '@/lib/store';
@@ -57,11 +56,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
   return (
     <View pointerEvents="box-none" style={[styles.wrap, { bottom: Math.max(insets.bottom - 6, 10) }]}>
       <View style={[styles.bar, { borderColor: colors.border, shadowOpacity: isDark ? 0 : 0.1 }]}>
-        {Platform.OS === 'ios' ? (
-          <BlurView intensity={80} tint={isDark ? 'dark' : 'light'} style={[StyleSheet.absoluteFill, { backgroundColor: colors.glass }]} />
-        ) : (
-          <View style={[StyleSheet.absoluteFill, { backgroundColor: colors.card }]} />
-        )}
+        <View style={[StyleSheet.absoluteFill, { backgroundColor: Platform.OS === 'ios' ? colors.glass : colors.card }]} />
         {inner}
       </View>
     </View>
